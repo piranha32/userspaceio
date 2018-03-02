@@ -1,0 +1,15 @@
+eclipse.preferences.version=1
+encoding//c-periphery/python/src/libperiphery/libperipheryi2c.py=utf-8
+encoding//c-periphery/python/src/libperiphery/libperipheryserial.py=utf-8
+encoding//c-periphery/python/src/libperiphery/libperipheryspi.py=utf-8
+encoding//c-periphery/python/src/mpu6050.py=utf-8
+encoding//c-periphery/python/src/serialtest.py=utf-8
+encoding//c-periphery/python/src/spiloopback.py=utf-8
+encoding//libgpiod/python/src/buttoncallback.py=utf-8
+encoding//libgpiod/python/src/buttonthread.py=utf-8
+encoding//libgpiod/python/src/buttonwait.py=utf-8
+encoding//libgpiod/python/src/hcsr501.py=utf-8
+encoding//libgpiod/python/src/ledtest.py=utf-8
+encoding//libgpiod/python/src/libgpiod/libgpiod.py=utf-8
+encoding//pwmio/python/src/ledflash.py=utf-8
+encoding//pwmio/python/src/libpwmio/libpwmio.py=utf-8
