@@ -54,14 +54,14 @@ class adxl345:
         """Retrieve the current data rate. X-axis data 0 (6 bytes for X/Y/Z).
         """
         retVal = self.i2c.readArray(handle, addr, 0x32, 6)
-        # Convert string to tuple of 16 bit integers x, y, z
-        x = ord(retVal[0]) | (ord(retVal[1]) << 8)
+        # Convert to tuple of 16 bit integers x, y, z
+        x = retVal[0] | (retVal[1] << 8)
         if(x & (1 << 16 - 1)):
             x = x - (1 << 16)
-        y = ord(retVal[2]) | (ord(retVal[3]) << 8)
+        y = retVal[2] | (retVal[3] << 8)
         if(y & (1 << 16 - 1)):
             y = y - (1 << 16)
-        z = ord(retVal[4]) | (ord(retVal[5]) << 8)
+        z = retVal[4] | (retVal[5] << 8)
         if(z & (1 << 16 - 1)):
             z = z - (1 << 16)    
         return (x, y, z)
