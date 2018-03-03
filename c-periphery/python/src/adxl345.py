@@ -77,13 +77,13 @@ class adxl345:
             # Enable the accelerometer
             self.i2c.writeReg(handle, address, 0x2d, 0x08)
             # +/- 2g
-            setRange(handle, 0x00)
+            self.setRange(handle, 0x00)
             # 100 Hz
-            setDataRate(handle, 0x0a)
-            print("Range = %d, data rate = %d" % (getRange(handle), getDataRate(handle)))
+            self.setDataRate(handle, 0x0a)
+            print("Range = %d, data rate = %d" % (self.getRange(handle), self.getDataRate(handle)))
             count = 0
             while count < 100:
-                data = read(handle)
+                data = self.read(handle)
                 print("x: %04d, y: %04d, z: %04d" % (data[0], data[1], data[2]))
                 time.sleep(0.5)
                 count += 1
