@@ -28,7 +28,7 @@ class adxl345:
         return self.i2c.readReg(handle, addr, 0x31) & 0x03
 
 
-    def setRange(self, handle, value):
+    def setRange(self, handle, addr, value):
         """Set the range of the accelerometer to the provided value. Read the data
         format register to preserve bits. Update the data rate, make sure that the
         FULL-RES bit is enabled for range scaling.
