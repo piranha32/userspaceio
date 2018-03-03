@@ -73,8 +73,7 @@ class adxl345:
     def main(self, device, address):
         handle = self.i2c.open(device)
         # ADXL345 wired up on port 0x53?
-        print("0x%x" % self.i2c.readReg(handle, address, 0x00))        
-        if self.i2c.readReg(handle, address, 0x00) == address:
+        if self.i2c.readReg(handle, address, 0x00) == 0xE5:
             # Enable the accelerometer
             self.i2c.writeReg(handle, address, 0x2d, 0x08)
             # +/- 2g
@@ -89,7 +88,7 @@ class adxl345:
                 time.sleep(0.5)
                 count += 1
         else:
-            print("ADXL345 no found at 0x%x" % address)
+            print("Not ADXL345?")
         self.i2c.close(handle)
 
 if __name__ == "__main__":
