@@ -83,7 +83,8 @@ is a C library and tools for interacting with the linux GPIO character device.
 Since linux 4.8 the GPIO sysfs interface is deprecated. User space should use
 the character device instead. libgpiod encapsulates the ioctl calls and data
 structures behind a straightforward API. **Note:** Edit `usegitrepo` in
-install.sh to use libgpiod-1.0.tar.gz (defaut) or git branch v1.0.x.
+[install.sh](https://github.com/sgjava/userspaceio/blob/master/libgpiod/install.sh)
+to use libgpiod-1.0.tar.gz (defaut) or git branch v1.0.x.
 
 Since libgpiod is not currently present in most Linux distributions you need to
 build it from source. This project automates the build process on Armbian, but
