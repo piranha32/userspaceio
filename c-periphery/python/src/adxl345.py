@@ -55,13 +55,14 @@ class adxl345:
         """
         retVal = self.i2c.readArray(handle, addr, 0x32, 6)
         # Convert to tuple of 16 bit integers x, y, z
-        x = retVal[0] | (retVal[1] *256)
+        print retVal[0]
+        x = retVal[0] | (retVal[1] << 8)
         if(x & (1 << 16 - 1)):
             x = x - (1 << 16)
-        y = retVal[2] | (retVal[3] * 256)
+        y = retVal[2] | (retVal[3] << 8)
         if(y & (1 << 16 - 1)):
             y = y - (1 << 16)
-        z = retVal[4] | (retVal[5] * 256)
+        z = retVal[4] | (retVal[5] << 8)
         if(z & (1 << 16 - 1)):
             z = z - (1 << 16)    
         return (x, y, z)

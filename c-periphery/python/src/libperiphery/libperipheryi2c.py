@@ -171,4 +171,4 @@ class libperipheryi2c:
         # Transfer a transaction with two I2C messages
         if self.lib.i2c_transfer(handle, msgs, 2) < 0:
             raise RuntimeError(self.ffi.string(self.lib.i2c_errmsg(handle)).decode('utf-8'))
-        return msg2[0]
+        return msg2
