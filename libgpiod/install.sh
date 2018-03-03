@@ -5,6 +5,11 @@
 # Run in the libgpiod dir of the userspaceio project.
 #
 
+# Use tar.gz instead of git repo
+usegitrepo="False"
+libgpiodurl="https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git/snapshot/"
+libgpiodarchive="libgpiod-1.0.tar.gz"
+
 # Get current directory
 curdir=$PWD
 
@@ -19,9 +24,12 @@ log(){
 	echo "$timestamp $1" >> $logfile 2>&1
 }
 
+# Temp dir for downloads, etc.
+tmpdir="$HOME/temp"
+
 log "Installing libgpiod"
 
-# See if github project already exists
+# See if project already exists
 if [ ! -d "$curdir/../../libgpiod" ]; then
 	# Source file
 	. /etc/armbian-release 
@@ -38,8 +46,25 @@ if [ ! -d "$curdir/../../libgpiod" ]; then
 	sudo apt-get install -y libtool pkg-config	>> $logfile 2>&1
 	# Move to home dir
 	cd $curdir/../../ >> $logfile 2>&1
-	log "Cloning libgpiod"
-	git clone https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git --branch v1.0.x >> $logfile 2>&1
+    # If patchjava is True then install OpenCV's contrib package
+    if [ "$usegitrepo" = "True" ]; then	
+		log "Cloning libgpiod"
+		git clone https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git --branch v1.0.x >> $logfile 2>&1
+	else
+		# Clean up
+		log "Removing $tmpdir"
+		rm -rf "$tmpdir" >> $logfile 2>&1
+		mkdir -p "$tmpdir" >> $logfile 2>&1
+		echo -n "Downloading $libgpiodurl$libgpiodarchive to $tmpdir     "
+		wget --directory-prefix=$tmpdir --timestamping --progress=dot "$libgpiodurl$libgpiodarchive" 2>&1 | grep --line-buffered "%" |  sed -u -e "s,\.,,g" | awk '{printf("\b\b\b\b%4s", $2)}'
+		echo
+		log "Extracting $tmpdir/$libgpiodarchive to $tmpdir"
+		tar -xf "$tmpdir/$libgpiodarchive" -C "$tmpdir" >> $logfile 2>&1
+		mv $tmpdir/libgipod ~/
+		# Clean up
+		log "Removing $tmpdir"
+		rm -rf "$tmpdir" >> $logfile 2>&1
+	fi	
 	cd libgpiod >> $logfile 2>&1
 	# Add header file missing from Linux user space includes
 	mkdir -p $curdir/include/linux >> $logfile 2>&1
