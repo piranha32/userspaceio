@@ -143,3 +143,32 @@ class libperipheryi2c:
             return -((65535 - value) + 1)
         else:
             return value        
+
+    def readArray(self, handle, addr, reg, len):
+        """Read array from i2c register.
+        
+        In order to read a register, we first do a "dummy write" by writing 0 bytes
+        to the register we want to read from. This is similar to writing to a
+        register except it's 1 byte rather than 2.
+        """
+        # Register to read
+        msg1 = self.ffi.new("uint8_t[]", 1)
+        msg1[0] = reg
+        # Set buffer to 0 that data will be read into
+        msg2 = self.ffi.new("uint8_t[]", len)
+        # Build message array
+        msgs = self.ffi.new("struct i2c_msg[]", 2)
+        # Build write message element 
+        msgs[0].addr = addr
+        msgs[0].flags = 0x00
+        msgs[0].len = 1
+        msgs[0].buf = msg1
+        # Build read message element
+        msgs[1].addr = addr
+        msgs[1].flags = self.lib.I2C_M_RD
+        msgs[1].len = 1
+        msgs[1].buf = msg2            
+        # Transfer a transaction with two I2C messages
+        if self.lib.i2c_transfer(handle, msgs, 2) < 0:
+            raise RuntimeError(self.ffi.string(self.lib.i2c_errmsg(handle)).decode('utf-8'))
+        return msg2[0]

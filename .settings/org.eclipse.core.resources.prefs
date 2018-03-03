@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//c-periphery/python/src/adxl345.py=utf-8
 encoding//c-periphery/python/src/libperiphery/libperipheryi2c.py=utf-8
 encoding//c-periphery/python/src/libperiphery/libperipheryserial.py=utf-8
 encoding//c-periphery/python/src/libperiphery/libperipheryspi.py=utf-8

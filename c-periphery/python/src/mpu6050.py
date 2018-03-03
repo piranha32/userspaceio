@@ -170,7 +170,7 @@ class mpu6050:
         return [accel, gyro, temp]
 
     def main(self, device, address):
-        handle = self.i2c.open(args.device)
+        handle = self.i2c.open(device)
         # Wake up the MPU-6050 since it starts in sleep mode
         self.i2c.writeReg(handle, address, 0x6b, 0x00)
         count = 0
