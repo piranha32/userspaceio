@@ -39,20 +39,20 @@ class adxl345:
         # Write the updated format register
         self.i2c.writeReg(handle, addr, 0x31, regVal)
     
-    def setDataRate(self, handle, rate):
+    def setDataRate(self, handle, addr, rate):
         """Set the data rate of the accelerometer. Note: The LOW_POWER bits are
         currently ignored, we always keep the device in 'normal' mode.
         """
         self.i2c.writeReg(handle, addr, 0x2c, rate & 0x0f)
     
        
-    def getDataRate(self, handle):
+    def getDataRate(self, handle, addr):
         """Retrieve the current data rate.
         """
         return self.i2c.readReg(handle, addr, 0x2c) & 0x0f
     
     
-    def read(self, handle):
+    def read(self, handle, addr):
         """Retrieve the current data rate. X-axis data 0 (6 bytes for X/Y/Z).
         """
         self.i2c.readArray(handle, addr, reg, len)
@@ -77,13 +77,13 @@ class adxl345:
             # Enable the accelerometer
             self.i2c.writeReg(handle, address, 0x2d, 0x08)
             # +/- 2g
-            self.setRange(handle, 0x00)
+            self.setRange(handle, addr, 0x00)
             # 100 Hz
-            self.setDataRate(handle, 0x0a)
-            print("Range = %d, data rate = %d" % (self.getRange(handle), self.getDataRate(handle)))
+            self.setDataRate(handle, addr, 0x0a)
+            print("Range = %d, data rate = %d" % (self.getRange(handle, addr), self.getDataRate(handle, addr)))
             count = 0
             while count < 100:
-                data = self.read(handle)
+                data = self.read(handle, addr)
                 print("x: %04d, y: %04d, z: %04d" % (data[0], data[1], data[2]))
                 time.sleep(0.5)
                 count += 1
