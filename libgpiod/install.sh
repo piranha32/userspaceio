@@ -60,7 +60,7 @@ if [ ! -d "$curdir/../../libgpiod" ]; then
 		echo
 		log "Extracting $tmpdir/$libgpiodarchive to $tmpdir"
 		tar -xf "$tmpdir/$libgpiodarchive" -C "$tmpdir" >> $logfile 2>&1
-		mv $tmpdir/libgipod-1.0 ~/libgipod
+		mv $tmpdir/libgipod-1.0 ~/libgipod  >> $logfile 2>&1
 		# Clean up
 		log "Removing $tmpdir"
 		rm -rf "$tmpdir" >> $logfile 2>&1
