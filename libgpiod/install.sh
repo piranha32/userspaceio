@@ -55,15 +55,14 @@ if [ ! -d "$curdir/../../libgpiod" ]; then
 		log "Removing $tmpdir"
 		rm -rf "$tmpdir" >> $logfile 2>&1
 		mkdir -p "$tmpdir" >> $logfile 2>&1
-		echo -n "Downloading $libgpiodurl$libgpiodarchive to $tmpdir     "
+		log "Downloading $libgpiodurl$libgpiodarchive to $tmpdir     "
 		wget --directory-prefix=$tmpdir --timestamping --progress=dot "$libgpiodurl$libgpiodarchive" 2>&1 | grep --line-buffered "%" |  sed -u -e "s,\.,,g" | awk '{printf("\b\b\b\b%4s", $2)}'
-		echo
 		log "Extracting $tmpdir/$libgpiodarchive to $tmpdir"
 		tar -xf "$tmpdir/$libgpiodarchive" -C "$tmpdir" >> $logfile 2>&1
 		mv $tmpdir/libgipod-1.0 ~/libgipod  >> $logfile 2>&1
 		# Clean up
-		log "Removing $tmpdir"
-		rm -rf "$tmpdir" >> $logfile 2>&1
+#		log "Removing $tmpdir"
+#		rm -rf "$tmpdir" >> $logfile 2>&1
 	fi	
 	cd libgpiod >> $logfile 2>&1
 	# Add header file missing from Linux user space includes
