@@ -53,7 +53,7 @@ class adxl345:
     def read(self, handle, addr):
         """Retrieve the current data rate. X-axis data 0 (6 bytes for X/Y/Z).
         """
-        retVal = self.i2c.readArray(handle, addr, reg, len)
+        retVal = self.i2c.readArray(handle, addr, 0x32, 6)
         # Convert string to tuple of 16 bit integers x, y, z
         x = ord(retVal[0]) | (ord(retVal[1]) << 8)
         if(x & (1 << 16 - 1)):
