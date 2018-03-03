@@ -31,15 +31,23 @@ log "Installing libgpiod"
 
 # See if project already exists
 if [ ! -d "$curdir/../../libgpiod" ]; then
-	# Source file
-	. /etc/armbian-release 
-	# Build kernel header package name
-	if [ -z "$BRANCH" ]
+	if [ -e "/etc/armbian-release" ]
 	then
-		package="linux-headers-$LINUXFAMILY"
- 	else
-		package="linux-headers-$BRANCH-$LINUXFAMILY"
+		# We're dealing with Armbian
+		# Source release file
+		. /etc/armbian-release 
+		# Build kernel header package name
+		if [ -z "$BRANCH" ]
+		then
+			package="linux-headers-$LINUXFAMILY"
+		else
+			package="linux-headers-$BRANCH-$LINUXFAMILY"
+		fi
+	else
+		# Not armbian. Assume release and family from uname is correct.
+		package="linux-headers-`uname -r`"
 	fi
+
 	log "Installing Linux headers $package"
 	sudo apt-get install -y $package >> $logfile 2>&1
 	log "Installing required build packages"
