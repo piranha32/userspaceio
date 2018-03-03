@@ -59,12 +59,12 @@ if [ ! -d "$curdir/../../libgpiod" ]; then
 		wget --directory-prefix=$tmpdir "$libgpiodurl$libgpiodarchive" 2>&1
 		log "Extracting $tmpdir/$libgpiodarchive to $tmpdir"
 		tar -xf "$tmpdir/$libgpiodarchive" -C "$tmpdir" >> $logfile 2>&1
-		mv $tmpdir/libgpiod-1.0 $HOME/libgipod  >> $logfile 2>&1
+		mv $tmpdir/libgpiod-1.0 $HOME/libgpiod  >> $logfile 2>&1
 		# Clean up
 		log "Removing $tmpdir"
 		rm -rf "$tmpdir" >> $logfile 2>&1
 	fi	
-	cd $HOME/libgpiod >> $logfile 2>&1
+	cd libgpiod >> $logfile 2>&1
 	# Add header file missing from Linux user space includes
 	mkdir -p $curdir/include/linux >> $logfile 2>&1
 	cp /usr/src/linux-headers-$(uname -r)/include/linux/compiler_types.h $curdir/include/linux/. >> $logfile 2>&1	
