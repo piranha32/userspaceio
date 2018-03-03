@@ -44,7 +44,7 @@ if [ ! -d "$curdir/../../libgpiod" ]; then
 			package="linux-headers-$BRANCH-$LINUXFAMILY"
 		fi
 	else
-		# Not armbian. Assume release and family from uname is correct.
+		# Not armbian. Assume release and family from uname are correct.
 		package="linux-headers-`uname -r`"
 	fi
 
