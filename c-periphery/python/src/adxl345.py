@@ -39,19 +39,19 @@ class adxl345:
         # Write the updated format register
         self.i2c.writeReg(handle, addr, 0x31, regVal)
     
-    def setDataRate(self, handle, addr, rate):
-        """Set the data rate of the accelerometer. Note: The LOW_POWER bits are
-        currently ignored, we always keep the device in 'normal' mode.
-        """
-        self.i2c.writeReg(handle, addr, 0x2c, rate & 0x0f)
-       
     def getDataRate(self, handle, addr):
         """Retrieve the current data rate.
         """
         return self.i2c.readReg(handle, addr, 0x2c) & 0x0f
     
+    def setDataRate(self, handle, addr, rate):
+        """Set the data rate of the accelerometer. Note: The LOW_POWER bits are
+        currently ignored, we always keep the device in 'normal' mode.
+        """
+        self.i2c.writeReg(handle, addr, 0x2c, rate & 0x0f)
+    
     def read(self, handle, addr):
-        """Retrieve the current data rate. X-axis data 0 (6 bytes for X/Y/Z).
+        """Retrieve x, y, z 16 bit data in 6 bytes.
         """
         retVal = self.i2c.readArray(handle, addr, 0x32, 6)
         # Convert to tuple of 16 bit integers x, y, z
@@ -86,7 +86,6 @@ class adxl345:
         else:
             print("Not ADXL345?")
         self.i2c.close(handle)
-
 
 if __name__ == "__main__":
     parser = ArgumentParser()

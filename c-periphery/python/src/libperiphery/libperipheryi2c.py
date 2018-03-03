@@ -166,9 +166,9 @@ class libperipheryi2c:
         # Build read message element
         msgs[1].addr = addr
         msgs[1].flags = self.lib.I2C_M_RD
-        msgs[1].len = 1
+        msgs[1].len = len
         msgs[1].buf = msg2            
         # Transfer a transaction with two I2C messages
         if self.lib.i2c_transfer(handle, msgs, 2) < 0:
             raise RuntimeError(self.ffi.string(self.lib.i2c_errmsg(handle)).decode('utf-8'))
-        return msg2[0]
+        return msg2
