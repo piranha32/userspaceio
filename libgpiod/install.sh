@@ -59,7 +59,7 @@ if [ ! -d "$curdir/../../libgpiod" ]; then
 		wget --directory-prefix=$tmpdir --timestamping --progress=dot "$libgpiodurl$libgpiodarchive" 2>&1 | grep --line-buffered "%" |  sed -u -e "s,\.,,g" | awk '{printf("\b\b\b\b%4s", $2)}'
 		log "Extracting $tmpdir/$libgpiodarchive to $tmpdir"
 		tar -xf "$tmpdir/$libgpiodarchive" -C "$tmpdir" >> $logfile 2>&1
-		mv $tmpdir/libgipod-1.0 ~/libgipod  >> $logfile 2>&1
+		mv $tmpdir/libgpiod-1.0 ~/libgipod  >> $logfile 2>&1
 		# Clean up
 #		log "Removing $tmpdir"
 #		rm -rf "$tmpdir" >> $logfile 2>&1
