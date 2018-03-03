@@ -14,6 +14,7 @@ from argparse import *
 from cffi import FFI
 from libperiphery import libperipheryi2c
 
+
 class adxl345:
     
     def __init__(self):
@@ -26,7 +27,6 @@ class adxl345:
         the possible range constant values that will be returned.
         """
         return self.i2c.readReg(handle, addr, 0x31) & 0x03
-
 
     def setRange(self, handle, addr, value):
         """Set the range of the accelerometer to the provided value. Read the data
@@ -44,20 +44,16 @@ class adxl345:
         currently ignored, we always keep the device in 'normal' mode.
         """
         self.i2c.writeReg(handle, addr, 0x2c, rate & 0x0f)
-    
        
     def getDataRate(self, handle, addr):
         """Retrieve the current data rate.
         """
         return self.i2c.readReg(handle, addr, 0x2c) & 0x0f
     
-    
     def read(self, handle, addr):
         """Retrieve the current data rate. X-axis data 0 (6 bytes for X/Y/Z).
         """
-        self.i2c.readArray(handle, addr, reg, len)
-        retVal = "012345"
-        AIOReadI2C(handle, 0x32, retVal, len(retVal))
+        retVal = self.i2c.readArray(handle, addr, reg, len)
         # Convert string to tuple of 16 bit integers x, y, z
         x = ord(retVal[0]) | (ord(retVal[1]) << 8)
         if(x & (1 << 16 - 1)):
@@ -80,7 +76,7 @@ class adxl345:
             self.setRange(handle, address, 0x00)
             # 100 Hz
             self.setDataRate(handle, address, 0x0a)
-            print("Range = %d, data rate = %d" % (self.getRange(handle, addr), self.getDataRate(handle, addr)))
+            print("Range = %d, data rate = %d" % (self.getRange(handle, address), self.getDataRate(handle, address)))
             count = 0
             while count < 100:
                 data = self.read(handle, address)
@@ -90,6 +86,7 @@ class adxl345:
         else:
             print("Not ADXL345?")
         self.i2c.close(handle)
+
 
 if __name__ == "__main__":
     parser = ArgumentParser()

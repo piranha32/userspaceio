@@ -53,6 +53,7 @@ class ledflash:
             self.lib.pwm_set_period(device, pwm, 0)
             self.lib.pwm_disable(device, pwm)        
             self.pwm.close(device)
+
         
 if __name__ == "__main__":
     parser = ArgumentParser()
