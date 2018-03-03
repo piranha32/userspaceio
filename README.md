@@ -91,7 +91,8 @@ build it from source. This project automates the build process on Armbian, but
 also includes the steps to build manually on your faviorite Linux distribution.
 
 #### Build manually
-Here are the steps to build libgpiod manually.
+Here are the steps to build libgpiod manually. You only need to do this if you want
+to build libgpiod stand alone. The install script does this for you on Armbian.
 * Flash Armbian or other distribution with mainline kernel (kernel must be >= 4.8)
     * `ls /dev/gpiochip*`
          * If you get results then proceed or else get a proper kernel
