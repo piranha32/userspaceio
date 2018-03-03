@@ -90,29 +90,6 @@ Since libgpiod is not currently present in most Linux distributions you need to
 build it from source. This project automates the build process on Armbian, but
 also includes the steps to build manually on your faviorite Linux distribution.
 
-#### Build manually
-Here are the steps to build libgpiod manually. You only need to do this if you want
-to build libgpiod stand alone. The install script does this for you on Armbian.
-* Flash Armbian or other distribution with mainline kernel (kernel must be >= 4.8)
-    * `ls /dev/gpiochip*`
-         * If you get results then proceed or else get a proper kernel
-    * `apt-get update`
-    * `apt-get upgrade`
-* sudo armbian-config (or download Linux headers manually for your distribution)
-    * Software
-    * Headers
-    * You can also try `sudo apt-get install linux-headers-$BRANCH-$LINUXFAMILY`
-* `sudo apt-get install libtool pkg-config`
-* `git clone https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git`
-* `cd libgpiod`
-* `mkdir -p include/linux`
-* `cp /usr/src/linux-headers-$(uname -r)/include/linux/compiler_types.h include/linux/.`
-* `./autogen.sh --enable-tools=yes --prefix=/usr/local CFLAGS="-I/usr/src/linux-headers-$(uname -r)/include/uapi -Iinclude"`
-    * If you get errors check config.log and try to correct before creating any Github issues
-* `make`
-* `sudo make install`
-* `sudo ldconfig`
-
 #### How pins are mapped
 This is based on testing on a NanoPi Duo. gpiochip0 starts at 0 and gpiochip1
 start at 352. Consider the following examples:
