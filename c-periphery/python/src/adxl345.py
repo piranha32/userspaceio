@@ -84,7 +84,7 @@ class adxl345:
             count = 0
             while count < 100:
                 data = read(handle)
-                print "x: %04d, y: %04d, z: %04d" % (data[0], data[1], data[2])
+                print("x: %04d, y: %04d, z: %04d" % (data[0], data[1], data[2]))
                 time.sleep(0.5)
                 count += 1
         else:
