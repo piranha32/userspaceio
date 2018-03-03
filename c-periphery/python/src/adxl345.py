@@ -87,7 +87,6 @@ class adxl345:
             print("Not ADXL345?")
         self.i2c.close(handle)
 
-
 if __name__ == "__main__":
     parser = ArgumentParser()
     parser.add_argument("--device", help="I2C device name (default '/dev/i2c-0')", type=str, default="/dev/i2c-0")
